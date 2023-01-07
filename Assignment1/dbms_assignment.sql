@@ -138,7 +138,8 @@ WHERE tbl_company.city = tbl_employee.city;
 
 /*
 (e) Find all employees in the database who live in the same cities and on the same streets
-as do their managers.*/
+as do their managers.
+*/
 
 SELECT tbl_manages.employee_name AS Employee,tbl_manages.manager_name as Manager
 FROM tbl_manages
@@ -169,14 +170,18 @@ SELECT * FROM tbl_company WHERE tbl_company.city=(SELECT tbl_company.city WHERE 
 
 /*
 (i) Find all employees who earn more than the average salary of all employees of their
-company.*/
+company.
+*/
+
 SELECT tbl_works.employee_name, tbl_works.company_name 
 FROM (SELECT company_name, AVG(salary) AS average_salary FROM tbl_works
 GROUP BY company_name) AS avg_salary
 JOIN tbl_works ON avg_salary.company_name = tbl_works.company_name WHERE tbl_works.salary > avg_salary.average_salary;
 
 /*
-(j) Find the company that has the most employees.*/
+(j) Find the company that has the most employees.
+*/
+
 SELECT w.company_name, COUNT(*) AS num_employees
 FROM tbl_works w
 GROUP BY w.company_name
@@ -252,7 +257,13 @@ WHERE employee_name IN
 SELECT * FROM tbl_works WHERE company_name='First Bank Corporation';
 
 /*
-(e) Delete all tuples in the works relation for employees of Small Bank Corporation.*/
-
-DELETE FROM tbl_works
-WHERE company_name = 'Small Bank Corporation';
+(e) Delete all tuples in the works relation for employees of Small Bank Corporation.
+*/
+SET foreign_key_checks = 0;
+DELETE tbl_works , tbl_employee , tbl_manages FROM tbl_works
+JOIN
+tbl_employee ON tbl_employee.employee_name = tbl_works.employee_name
+JOIN
+tbl_manages ON tbl_works.employee_name = tbl_manages.employee_name 
+WHERE tbl_works.company_name = 'Small Bank Corporation';
+SET foreign_key_checks = 1;
