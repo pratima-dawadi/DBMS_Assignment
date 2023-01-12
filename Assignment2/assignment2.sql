@@ -148,7 +148,7 @@ JOIN tbl_instructor
 	ON tbl_teaches.instructor_id = tbl_instructor.instructor_id
 WHERE tbl_course.department_name = 'Computer Science';
 
-/*4.4 Find the names of all students who have taken the course title of “Game Design”.*/
+/*4.4 Find the names of all students who have taken the course title of â€œGame Designâ€.*/
 
 SELECT tbl_student.student_name
 FROM tbl_student
@@ -178,7 +178,7 @@ WHERE salary
 	)
 ORDER BY salary
 
-/*7.7 Find the ID and names of all students who do not have an advisor.*/
+/*7.7 Find the ID and names of all students who do not have an advisor. */
 SELECT tbl_student.student_id, tbl_student.student_name
 FROM tbl_student
 LEFT JOIN tbl_department 
